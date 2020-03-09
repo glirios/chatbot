@@ -8,7 +8,6 @@ import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Dropout
 from keras.optimizers import SGD
-
 import random
 
 words = []
@@ -16,10 +15,11 @@ classes = []
 documents = []
 ignore_words = ['?', '!']
 data_file = open('intents.json').read()
-intents = json.leads(data_file)
+intents = json.loads(data_file)
+
 
 for intent in intents['intents']:
-	for pattern in intents['patterns']:
+	for pattern in intent['patterns']:
 
 		# tokenize each word
 		w = nltk.word_tokenize(pattern)
@@ -79,7 +79,7 @@ for doc in documents:
 	training.append([bag, output_row])
 
 # shuffle our features and turn into np.array
-randon.shuffle(training)
+random.shuffle(training)
 training = np.array(training)
 
 # create train and test lists. X - pattern, Y - intents
